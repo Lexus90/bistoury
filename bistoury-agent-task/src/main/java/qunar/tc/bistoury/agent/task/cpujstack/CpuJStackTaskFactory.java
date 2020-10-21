@@ -44,7 +44,7 @@ public class CpuJStackTaskFactory implements AgentGlobalTaskFactory {
     public void start() {
         PidExecutor jstackExecutor = new JStackPidExecutor();
         PidRecordExecutor momentCpuTimePidExecutor = new MomentCpuTimeRecordExecutor(executor);
-        TaskRunner taskRunner = new TaskRunner(agentConfig, kvDb, jstackExecutor, momentCpuTimePidExecutor);
-        executor.scheduleAtFixedRate(taskRunner, 5, 60, TimeUnit.SECONDS);
+        JstackTask jstackTask = new JstackTask(agentConfig, kvDb, jstackExecutor, momentCpuTimePidExecutor);
+        executor.scheduleAtFixedRate(jstackTask, 5, 60, TimeUnit.SECONDS);
     }
 }

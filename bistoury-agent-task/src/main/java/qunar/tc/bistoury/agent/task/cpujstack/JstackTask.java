@@ -49,9 +49,9 @@ import java.util.concurrent.atomic.AtomicInteger;
 /**
  * @author zhenyu.nie created on 2019 2019/1/8 19:26
  */
-public class TaskRunner implements Runnable {
+public class JstackTask implements Runnable {
 
-    private static final Logger logger = LoggerFactory.getLogger(TaskRunner.class);
+    private static final Logger logger = LoggerFactory.getLogger(JstackTask.class);
 
     private static final Splitter SPACE_SPLITTER = Splitter.on(' ').trimResults().omitEmptyStrings();
 
@@ -73,7 +73,7 @@ public class TaskRunner implements Runnable {
 
     private final PidRecordExecutor momentCpuTimeExecutor;
 
-    public TaskRunner(AgentConfig agentConfig, KvDb kvDb, PidExecutor jstackExecutor, PidRecordExecutor momentCpuTimeExecutor) {
+    public JstackTask(AgentConfig agentConfig, KvDb kvDb, PidExecutor jstackExecutor, PidRecordExecutor momentCpuTimeExecutor) {
         this.agentConfig = agentConfig;
         this.kvDb = kvDb;
         this.jstackExecutor = jstackExecutor;

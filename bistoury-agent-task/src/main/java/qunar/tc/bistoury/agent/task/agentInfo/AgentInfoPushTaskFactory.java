@@ -34,7 +34,7 @@ public class AgentInfoPushTaskFactory implements AgentGlobalTaskFactory {
 
     @Override
     public void start() {
-        TaskRunner taskRunner = new TaskRunner(executor);
-        executor.submit(taskRunner);
+        AgentInfoTask agentInfoTask = new AgentInfoTask(executor);
+        executor.submit(agentInfoTask);
     }
 }

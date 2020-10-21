@@ -1,0 +1,6 @@
+hll.mysql.username=ci_demo_rw
+hll.mysql.port=3306
+hll.mysql.password=0xfmYf3_fvxvMxrHxfM
+hll.mysql.host=192.168.106.101
+hll.mysql.database=db_ci_demo
+

@@ -41,6 +41,7 @@ public class ArthasStarter {
 
     static {
         String libDirPath = System.getProperty("bistoury.lib.dir");
+        logger.info("==cw libDirPath = {}", libDirPath);
         File libDir;
         if (Strings.isNullOrEmpty(libDirPath)) {
             libDir = new File(Configure.class.getProtectionDomain().getCodeSource().getLocation().getPath()).getParentFile();
@@ -49,9 +50,12 @@ public class ArthasStarter {
         }
         DEFAULT_AGENT_JAR_PATH = new File(libDir, "bistoury-instrument-agent.jar").getPath();
         DEFAULT_CORE_JAR_PATH = new File(libDir, "arthas-core.jar").getPath();
+        logger.info("==cw DEFAULT_AGENT_JAR_PATH = {}", DEFAULT_AGENT_JAR_PATH);
+        logger.info("==cw DEFAULT_CORE_JAR_PATH = {}", DEFAULT_CORE_JAR_PATH);
     }
 
     public synchronized static void start(int pid) throws Exception {
+        logger.info("==cw start pid = {}", pid);
         Configure configure = getConfigure(pid);
         attachAgent(configure);
     }
@@ -89,8 +93,12 @@ public class ArthasStarter {
             File agentFile = new File(arthasAgent);
             String name = agentFile.getName();
             String prefix = name.substring(0, name.indexOf('.'));
+            logger.info("==cw prefix = {}", prefix);
+//            String prefix = name;
             File dir = agentFile.getParentFile();
+            logger.info("==cw dir = {}", dir);
             File realAgentFile = getFileWithPrefix(dir, prefix);
+            logger.info("==cw realAgentFile = {}", realAgentFile);
 
             logger.info("start load arthas agent, input {}, load {}", arthasAgent, realAgentFile.getCanonicalPath());
             final String delimiter = "$|$";
@@ -107,6 +115,7 @@ public class ArthasStarter {
         File[] files = dir.listFiles(new FilenameFilter() {
             @Override
             public boolean accept(File dir, String name) {
+                logger.info("==cw name = {}", name);
                 return name.startsWith(prefix);
             }
         });
@@ -119,7 +128,7 @@ public class ArthasStarter {
     private static Configure getConfigure(int pid) {
         String agentJar = System.getProperty("bistoury.agent.jar.path", DEFAULT_AGENT_JAR_PATH);
         String coreJar = System.getProperty("bistoury.arthas.core.jar.path", DEFAULT_CORE_JAR_PATH);
-
+//        -Dbistoury.agent.jar.path=/Users/james.cao/code/debug/bistoury/bistoury-dist/target/bistoury-agent-bin/lib/bistoury-instrument-agent-2.0.7.jar -Dbistoury.arthas.core.jar.path=/Users/james.cao/code/debug/bistoury/bistoury-dist/target/bistoury-agent-bin/lib/arthas-core-3.1.4.jar
         Configure configure = new Configure();
         configure.setJavaPid(pid);
         configure.setArthasAgent(agentJar);

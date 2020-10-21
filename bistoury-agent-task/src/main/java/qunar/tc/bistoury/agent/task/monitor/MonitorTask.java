@@ -34,8 +34,8 @@ import java.io.ByteArrayOutputStream;
  * @date: 2019/1/8 19:47
  * @describe：
  */
-public class TaskRunner implements Runnable {
-    private static final Logger logger = LoggerFactory.getLogger(TaskRunner.class);
+public class MonitorTask implements Runnable {
+    private static final Logger logger = LoggerFactory.getLogger(MonitorTask.class);
     private static QMonitorStore MONITOR_STORE = QMonitorStore.getInstance();
     private static final TelnetStore TELNET_STORE = UrlEncodedTelnetStore.getInstance();
     private static final String COMMAND = BistouryConstants.REQ_MONITOR_SNAPSHOT;

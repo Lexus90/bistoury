@@ -16,7 +16,7 @@ for CMD in "$@";do true; done
 
 APP_PID=""
 LOCAL_IP=""
-
+echo "1. JAVA_HOME = $JAVA_HOME"
 while getopts p:i:j:c:h opt;do
     case $opt in
         p) APP_PID=$OPTARG;;
@@ -31,7 +31,7 @@ while getopts p:i:j:c:h opt;do
            exit 0
     esac
 done
-
+echo "2. JAVA_HOME = $JAVA_HOME"
 if [[ "$JAVA_HOME" != "" ]];then
     JAVA="$JAVA_HOME/bin/java"
 else

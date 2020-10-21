@@ -9,9 +9,9 @@ import java.io.File;
 /**
  * @author cai.wen created on 19-11-28 下午5:25
  */
-public class TaskRunner implements Runnable {
+public class ProfilerFileCleanTask implements Runnable {
 
-    private static final Logger logger = LoggerFactory.getLogger(TaskRunner.class);
+    private static final Logger logger = LoggerFactory.getLogger(ProfilerFileCleanTask.class);
 
     private static final int EXPIRE_HOURS = 3 * 24;
 

@@ -35,9 +35,9 @@ import java.util.List;
  * @date: 2019/4/1 10:16
  * @describe：
  */
-public class TaskRunner implements Runnable {
+public class HeapHistoTask implements Runnable {
 
-    private static final Logger logger = LoggerFactory.getLogger(TaskRunner.class);
+    private static final Logger logger = LoggerFactory.getLogger(HeapHistoTask.class);
 
     private static final AgentConfig agentConfig = new AgentConfig(MetaStores.getMetaStore());
 

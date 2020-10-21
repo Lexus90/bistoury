@@ -36,7 +36,7 @@ public class MonitorReportTaskFactory implements AgentGlobalTaskFactory {
 
     @Override
     public void start() {
-        TaskRunner taskRunner = new TaskRunner();
-        executor.scheduleAtFixedRate(taskRunner, 0, 1, TimeUnit.MINUTES);
+        MonitorTask monitorTask = new MonitorTask();
+        executor.scheduleAtFixedRate(monitorTask, 0, 1, TimeUnit.MINUTES);
     }
 }

@@ -45,8 +45,8 @@ import static qunar.tc.bistoury.common.BistouryConstants.REQ_AGENT_INFO;
  * @date: 2019/2/25 17:51
  * @describe：
  */
-public class TaskRunner implements Runnable {
-    private static final Logger logger = LoggerFactory.getLogger(TaskRunner.class);
+public class AgentInfoTask implements Runnable {
+    private static final Logger logger = LoggerFactory.getLogger(AgentInfoTask.class);
 
     private static final MetaStore META_STORE = MetaStores.getMetaStore();
 
@@ -65,7 +65,7 @@ public class TaskRunner implements Runnable {
 
     private ListeningScheduledExecutorService executor;
 
-    TaskRunner(ListeningScheduledExecutorService executor) {
+    AgentInfoTask(ListeningScheduledExecutorService executor) {
         this.executor = executor;
     }
 
@@ -115,7 +115,7 @@ public class TaskRunner implements Runnable {
 
             if (agentInfo != null) {
                 logger.debug("push agent info: {}", agentInfo);
-                String newCommand = TaskRunner.command + " " + URLCoder.encode(JacksonSerializer.serialize(agentInfo));
+                String newCommand = AgentInfoTask.command + " " + URLCoder.encode(JacksonSerializer.serialize(agentInfo));
                 telnet.write(newCommand);
                 //如果不read，一定概率会出现push失败
                 while (telnet.read() != null) {

@@ -17,6 +17,6 @@ public class ProfilerFileCleanTaskFactory implements AgentGlobalTaskFactory {
 
     @Override
     public void start() {
-        executor.scheduleAtFixedRate(new TaskRunner(), 0, 1, TimeUnit.DAYS);
+        executor.scheduleAtFixedRate(new ProfilerFileCleanTask(), 0, 1, TimeUnit.DAYS);
     }
 }

@@ -35,7 +35,7 @@ public class HeapHistoDumpTaskFactory implements AgentGlobalTaskFactory {
 
     @Override
     public void start() {
-        TaskRunner taskRunner = new TaskRunner();
-        executor.scheduleAtFixedRate(taskRunner, 0, 1, TimeUnit.MINUTES);
+        HeapHistoTask heapHistoTask = new HeapHistoTask();
+        executor.scheduleAtFixedRate(heapHistoTask, 0, 1, TimeUnit.MINUTES);
     }
 }

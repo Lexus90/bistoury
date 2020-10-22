@@ -47,10 +47,10 @@
         color: undefined,
         backColor: undefined,
         borderColor: undefined,
-        changedNodeColor: '#39A5DC',
+        changedNodeColor: '#606060',
         onhoverColor: '#F5F5F5',
         selectedColor: '#FFFFFF',
-        selectedBackColor: '#428bca',
+        selectedBackColor: '#606060',
         searchResultColor: '#D9534F',
         searchResultBackColor: undefined,
 

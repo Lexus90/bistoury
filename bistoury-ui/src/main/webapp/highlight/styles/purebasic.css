@@ -39,7 +39,7 @@ NOTE_2:	Color names provided in comments were derived using "Name that Color" on
 .hljs-attr,
 .hljs-params,
 .hljs-subst {
-	color: #000000; /* Black */
+	color: #1f1f1f; /* Black */
 }
 
 .hljs-comment, /* --- used for PureBASIC Comments --- */

@@ -58,7 +58,7 @@ $(document).ready(function () {
     function initHeader() {
         var href = window.location.href;
         var containerFluid = $("<div></div>").addClass("container-fluid");
-        var navbarHeader = $("<div></div>").addClass("navbar-header").append($("<a></a>").attr("href", "/").append($("<img>").attr("src", "/image/tcdev.png")));
+        // var navbarHeader = $("<div></div>").addClass("navbar-header").append($("<a></a>").attr("href", "/").append($("<img>").attr("src", "/image/tcdev1.png")));
 
         var navbarLeft = $("<ul></ul>").addClass("nav navbar-nav navbar-left");
         headers.forEach(function (header) {
@@ -89,7 +89,7 @@ $(document).ready(function () {
         var navbarCollapse = $("<div></div>").addClass("collapse navbar-collapse").attr("id", "bs-example-navbar-collapse-1");
         navbarCollapse.append(navbarLeft).append(navbarRight);
 
-        containerFluid.append(navbarHeader);
+        // containerFluid.append(navbarHeader);
         containerFluid.append(navbarCollapse);
         var nav = $("<nav></nav>").addClass("navbar navbar-default");
         nav.append(containerFluid);

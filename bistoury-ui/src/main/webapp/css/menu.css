@@ -65,7 +65,7 @@ html, body {
 }
 
 .content input:hover, .content input:focus {
-    border: solid 1px #36c6c8 !important;
+    border: solid 1px #606060 !important;
     transition: border-color 0.5s linear;
 }
 
@@ -140,7 +140,7 @@ html, body {
 }
 
 .progress-bar {
-    background-color: #36c6c8;
+    background-color: #ffadd2;
     color: #000;
 }
 

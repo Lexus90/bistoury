@@ -16,7 +16,7 @@ ISBL Editor style light color schemec (c) Dmitriy Tarasov <dimatar@gmail.com>
 
 .hljs,
 .hljs-subst {
-  color: #000000;
+  color: #1f1f1f;
 }
 
 .hljs-comment {
@@ -30,7 +30,7 @@ ISBL Editor style light color schemec (c) Dmitriy Tarasov <dimatar@gmail.com>
 .hljs-meta-keyword,
 .hljs-doctag,
 .hljs-name {
-  color: #000000;
+  color: #1f1f1f;
   font-weight: bold;
 }
 
@@ -48,7 +48,7 @@ ISBL Editor style light color schemec (c) Dmitriy Tarasov <dimatar@gmail.com>
 .hljs-quote,
 .hljs-template-tag,
 .hljs-deletion {
-  color: #000000;
+  color: #1f1f1f;
 }
 
 .hljs-title,

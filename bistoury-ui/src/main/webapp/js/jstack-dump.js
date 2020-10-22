@@ -449,7 +449,7 @@ function cellStyle(value, row, index, field) {
         } else if (isTimeWaitingState(value) || isWaitingState(value)) {
             return {
                 css: {
-                    'color': '#f0ad4e'
+                    'color': '#448dfe'
                 }
             }
         } else if (value == 'OTHER') {

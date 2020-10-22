@@ -29,6 +29,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 /**
+ * todo cw 状态转换
  * @author zhenyu.nie created on 2019 2019/5/28 16:52
  */
 public class DefaultTaskStore implements TaskStore {

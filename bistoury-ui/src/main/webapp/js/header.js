@@ -26,25 +26,28 @@ $(document).ready(function () {
             }
             return false;
         }
-    }, {
-        name: "动态监控",
-        href: "/monitor.html",
-        active: function () {
-            if (window.location.pathname == "/monitor.html") {
-                return true;
-            }
-            return false;
-        }
-    }, {
-        name: "文件下载",
-        href: "/download.html",
-        active: function () {
-            if (window.location.pathname == "/download.html") {
-                return true;
-            }
-            return false;
-        }
-    }, {
+    },
+    //     {
+    //     name: "动态监控",
+    //     href: "/monitor.html",
+    //     active: function () {
+    //         if (window.location.pathname == "/monitor.html") {
+    //             return true;
+    //         }
+    //         return false;
+    //     }
+    // },
+    //     {
+    //     name: "文件下载",
+    //     href: "/download.html",
+    //     active: function () {
+    //         if (window.location.pathname == "/download.html") {
+    //             return true;
+    //         }
+    //         return false;
+    //     }
+    // },
+        {
         name: "应用中心",
         href: "/application.html",
         active: function () {

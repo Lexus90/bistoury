@@ -3,7 +3,7 @@ kbd,
 pre,
 samp {
     font-family: Monospace,Consolas;
-    font-size: 14px;
+    font-size: 16px;
 }
 
 .jqconsole span {
@@ -71,7 +71,7 @@ samp {
 }
 
 .jqconsole-prompt-prefix {
-    color: #ad8920;
+    color: #f759ab;
 }
 
 /* The current prompt text color */
@@ -81,7 +81,7 @@ samp {
 
 /* The command history */
 .jqconsole-old-prompt {
-    color: #eee;
+    color: #42d2ff;
     font-weight: normal;
 }
 
@@ -98,8 +98,8 @@ samp {
 
 /* The text color of the output. */
 .jqconsole-output {
-    color: #ccd;
-    font-size: 14px;
+    color: #ef136d;
+    font-size: 16px;
 }
 
 #dialog label,

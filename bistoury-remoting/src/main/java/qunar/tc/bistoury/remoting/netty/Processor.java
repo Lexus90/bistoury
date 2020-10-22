@@ -27,6 +27,10 @@ import java.util.List;
  */
 public interface Processor<T> {
 
+    /**
+     * 定义Processor类型
+     * @return
+     */
     List<Integer> types();
 
     void process(RemotingHeader header, T command, ResponseHandler handler);

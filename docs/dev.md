@@ -41,6 +41,7 @@ Main: `qunar.tc.bistoury.proxy.container.Bootstrap`
 内容:
 ```shell script
 172.30.84.204:9090:9881
+192.168.106.82:9090:9881
 
 LOCAL_IP=`/sbin/ifconfig -a|grep inet|grep -v 127.0.0.1|grep -v inet6|awk '{print $2}'|tr -d "addr:"|tail -1`
 PROXY_TOMCAT_PORT=9090

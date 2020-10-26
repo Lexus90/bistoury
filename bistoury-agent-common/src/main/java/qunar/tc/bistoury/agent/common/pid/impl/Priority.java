@@ -29,4 +29,6 @@ public class Priority {
     public static final int FROM_JPS_PRIORITY = 10000;
 
     public static final int FROM_PS_PRIORITY = 20000;
+
+    public static final int FROM_PS_APP_ID_PRIORITY = 30000;
 }

@@ -39,6 +39,7 @@ public class HeapHistoProcessor extends AbstractCommand<HeapHistoCommand> {
     protected HeapHistoCommand prepareCommand(RequestData<HeapHistoCommand> data, String agentId) {
         HeapHistoCommand command = data.getCommand();
         command.setPid(BistouryConstants.FILL_PID);
+        command.setAppId(data.getApp());
         return command;
     }
 

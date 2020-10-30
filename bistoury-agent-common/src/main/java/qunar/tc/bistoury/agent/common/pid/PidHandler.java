@@ -27,4 +27,8 @@ public interface PidHandler {
     int priority();
 
     int getPid();
+
+    default int getPid(String appId) {
+        return -1;
+    }
 }

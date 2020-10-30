@@ -38,5 +38,20 @@ public abstract class AbstractPidHandler implements PidHandler {
         }
     }
 
+    @Override
+    public final int getPid(String appId) {
+        try {
+            return doGetPid(appId);
+        } catch (Exception e) {
+            logger.error("get pid error, {}", getClass().getName(), e);
+            return -1;
+        }
+    }
+
     protected abstract int doGetPid();
+
+    protected int doGetPid(String appId){
+        return -1;
+    }
+
 }

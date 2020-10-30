@@ -17,6 +17,7 @@
 
 package qunar.tc.bistoury.remoting.netty;
 
+import com.google.common.base.Preconditions;
 import com.google.common.collect.ImmutableMap;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
@@ -26,9 +27,12 @@ import org.slf4j.LoggerFactory;
 import qunar.tc.bistoury.agent.common.ResponseHandler;
 import qunar.tc.bistoury.agent.common.pid.PidUtils;
 import qunar.tc.bistoury.common.BistouryConstants;
+import qunar.tc.bistoury.remoting.command.BaseCommand;
 import qunar.tc.bistoury.remoting.command.CommandSerializer;
 import qunar.tc.bistoury.remoting.protocol.*;
 
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Map;
 
@@ -87,17 +91,42 @@ public class RequestHandler extends ChannelInboundHandlerAdapter {
 
         String command = CommandSerializer.readCommand(datagram.getBody());
         int index = command.indexOf(BistouryConstants.FILL_PID);
+
+        Class<?> commandType = codeTypeMappingStore.getMappingType(code);
+
+
+        Type superclass = commandType.getGenericSuperclass();
+
+        int pid = -1;
+        if (superclass != null && superclass == BaseCommand.class) {
+            Object commandObj = commandType.cast(CommandSerializer.deserializeCommand(command, commandType));
+            BaseCommand baseComman = null;
+            if (commandObj instanceof BaseCommand) {
+                baseComman = ((BaseCommand) commandObj);
+                pid = PidUtils.getPidByAppId(baseComman.getAppId());
+            }
+            baseComman.setPid(pid + "");
+
+            if (pid < 0) {
+                handler.handleError(ErrorCode.PID_ERROR.getCode());
+                handler.handleEOF();
+                return;
+            }
+            processor.process(header, commandObj, handler);
+            return;
+        }
+
         if (index >= 0) {
-            int pid = PidUtils.getPid();
+            pid = PidUtils.getPid();
             if (pid < 0) {
                 handler.handleError(ErrorCode.PID_ERROR.getCode());
                 handler.handleEOF();
                 return;
             }
             command = command.replace(BistouryConstants.FILL_PID, String.valueOf(pid));
+            processor.process(header, commandType.cast(CommandSerializer.deserializeCommand(command, commandType)), handler);
+            return;
         }
-
-        Class<?> commandType = codeTypeMappingStore.getMappingType(code);
 
         processor.process(header, commandType.cast(CommandSerializer.deserializeCommand(command, commandType)), handler);
     }

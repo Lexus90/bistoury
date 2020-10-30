@@ -22,7 +22,7 @@ package qunar.tc.bistoury.remoting.command;
  * @date 2019/5/27 10:58
  * @describe
  */
-public class HeapHistoCommand {
+public class HeapHistoCommand extends BaseCommand {
     private String param;
     private Long timestamp;
     private String pid;
@@ -43,10 +43,12 @@ public class HeapHistoCommand {
         this.timestamp = timestamp;
     }
 
+    @Override
     public String getPid() {
         return pid;
     }
 
+    @Override
     public void setPid(String pid) {
         this.pid = pid;
     }

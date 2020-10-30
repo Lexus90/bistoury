@@ -23,6 +23,7 @@ import com.google.common.collect.Lists;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import qunar.tc.bistoury.agent.common.pid.impl.PidByJpsHandler;
+import qunar.tc.bistoury.agent.common.pid.impl.PidByPsAppIdHandler;
 import qunar.tc.bistoury.agent.common.pid.impl.PidByPsHandler;
 import qunar.tc.bistoury.agent.common.pid.impl.PidBySystemPropertyHandler;
 
@@ -41,6 +42,8 @@ public class PidUtils {
     private static final Logger logger = LoggerFactory.getLogger(PidUtils.class);
 
     private static final List<PidHandler> PID_HANDLERS = initPidHandler();
+
+    private static final PidHandler pidByPsAppIdHandler = new PidByPsAppIdHandler();
 
     private static List<PidHandler> initPidHandler() {
         List<PidHandler> handlers = Lists.newArrayList();
@@ -77,5 +80,9 @@ public class PidUtils {
             }
         }
         return -1;
+    }
+
+    public static int getPidByAppId(String appId) {
+        return pidByPsAppIdHandler.getPid(appId);
     }
 }

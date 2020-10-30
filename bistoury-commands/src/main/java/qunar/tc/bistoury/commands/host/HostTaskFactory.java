@@ -21,6 +21,7 @@ import com.google.common.collect.ImmutableSet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import qunar.tc.bistoury.agent.common.ResponseHandler;
+import qunar.tc.bistoury.remoting.command.HostInfoCommand;
 import qunar.tc.bistoury.remoting.netty.Task;
 import qunar.tc.bistoury.remoting.netty.TaskFactory;
 import qunar.tc.bistoury.remoting.protocol.CommandCode;
@@ -34,7 +35,7 @@ import java.util.Set;
  * @date: 2018/11/15 14:37
  * @describe：
  */
-public class HostTaskFactory implements TaskFactory<Integer> {
+public class HostTaskFactory implements TaskFactory<HostInfoCommand> {
 
     private static final Logger logger = LoggerFactory.getLogger(HostTaskFactory.class);
     private static final String NAME = "host";
@@ -50,7 +51,7 @@ public class HostTaskFactory implements TaskFactory<Integer> {
     }
 
     @Override
-    public Task create(RemotingHeader header, Integer command, ResponseHandler handler) {
-        return new HostTask(header.getId(), command, handler, header.getMaxRunningMs());
+    public Task create(RemotingHeader header, HostInfoCommand command, ResponseHandler handler) {
+        return new HostTask(header.getId(), Integer.valueOf(command.getPid()), handler, header.getMaxRunningMs());
     }
 }

@@ -58,7 +58,7 @@ public class DefaultCodeTypeMappingStore implements CodeTypeMappingStore {
         //HeapHisto
         register(HeapHistoCommand.class, ImmutableSet.of(REQ_TYPE_HOST_HEAP_HISTO.getCode()));
         //host
-        register(Integer.class, ImmutableSet.of(REQ_TYPE_HOST_JVM.getCode()));
+        register(HostInfoCommand.class, ImmutableSet.of(REQ_TYPE_HOST_JVM.getCode()));
         //thread info
         register(ThreadCommand.class, ImmutableSet.of(REQ_TYPE_HOST_THREAD.getCode()));
         //monitor query

@@ -20,6 +20,7 @@ package qunar.tc.bistoury.proxy.communicate.ui.handler.commandprocessor.processo
 import com.google.common.collect.ImmutableSet;
 import org.springframework.stereotype.Service;
 import qunar.tc.bistoury.common.BistouryConstants;
+import qunar.tc.bistoury.remoting.command.HostInfoCommand;
 import qunar.tc.bistoury.remoting.protocol.RequestData;
 import qunar.tc.bistoury.proxy.communicate.ui.handler.commandprocessor.AbstractCommand;
 import qunar.tc.bistoury.remoting.protocol.CommandCode;
@@ -32,11 +33,14 @@ import java.util.Set;
  * @describe
  */
 @Service
-public class HostInfoProcessor extends AbstractCommand<String> {
+public class HostInfoProcessor extends AbstractCommand<HostInfoCommand> {
 
     @Override
-    protected String prepareCommand(RequestData data, String agentId) {
-        return BistouryConstants.FILL_PID;
+    protected HostInfoCommand prepareCommand(RequestData data, String agentId) {
+        HostInfoCommand hostInfoCommand = new HostInfoCommand();
+        hostInfoCommand.setAppId(data.getApp());
+        hostInfoCommand.setPid(BistouryConstants.FILL_PID);
+        return hostInfoCommand;
     }
 
     @Override

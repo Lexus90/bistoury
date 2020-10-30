@@ -26,6 +26,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 /**
+ *
  * @author: leix.xie
  * @date: 2019/1/8 18:09
  * @describe：
@@ -35,8 +36,9 @@ public class MonitorReportTaskFactory implements AgentGlobalTaskFactory {
     private static final ListeningScheduledExecutorService executor = MoreExecutors.listeningDecorator(Executors.newSingleThreadScheduledExecutor(new NamedThreadFactory("qmonitor-report-task", true)));
 
     @Override
+    @Deprecated
     public void start() {
-        MonitorTask monitorTask = new MonitorTask();
-        executor.scheduleAtFixedRate(monitorTask, 0, 1, TimeUnit.MINUTES);
+//        MonitorTask monitorTask = new MonitorTask();
+//        executor.scheduleAtFixedRate(monitorTask, 0, 1, TimeUnit.MINUTES);
     }
 }

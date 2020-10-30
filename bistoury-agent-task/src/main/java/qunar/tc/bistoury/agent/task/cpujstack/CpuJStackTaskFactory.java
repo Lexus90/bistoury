@@ -41,10 +41,11 @@ public class CpuJStackTaskFactory implements AgentGlobalTaskFactory {
     private static final AgentConfig agentConfig = new AgentConfig(MetaStores.getMetaStore());
 
     @Override
+    @Deprecated
     public void start() {
-        PidExecutor jstackExecutor = new JStackPidExecutor();
-        PidRecordExecutor momentCpuTimePidExecutor = new MomentCpuTimeRecordExecutor(executor);
-        JstackTask jstackTask = new JstackTask(agentConfig, kvDb, jstackExecutor, momentCpuTimePidExecutor);
-        executor.scheduleAtFixedRate(jstackTask, 5, 60, TimeUnit.SECONDS);
+//        PidExecutor jstackExecutor = new JStackPidExecutor();
+//        PidRecordExecutor momentCpuTimePidExecutor = new MomentCpuTimeRecordExecutor(executor);
+//        JstackTask jstackTask = new JstackTask(agentConfig, kvDb, jstackExecutor, momentCpuTimePidExecutor);
+//        executor.scheduleAtFixedRate(jstackTask, 5, 60, TimeUnit.SECONDS);
     }
 }

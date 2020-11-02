@@ -65,6 +65,7 @@ public class NettyServerForAgent implements NettyServer {
     private volatile Channel channel;
 
     public NettyServerForAgent(Conf conf, AgentMessageHandler agentMessageHandler) {
+        //
         int heartbeatSec = conf.getInt("heartbeatSec", 30);
         this.heartbeatTimeoutSec = heartbeatSec * 2 + heartbeatSec / 2;
         this.agentMessageHandler = agentMessageHandler;

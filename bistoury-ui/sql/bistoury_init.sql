@@ -51,7 +51,7 @@ CREATE TABLE bistoury_server
     auto_jmap_histo_enable tinyint default 0 not null comment '打开自动jmap histo状态：0为关闭，1为开启',
     index idx_app_code (app_code),
     constraint uniq_server_id unique (server_id),
-    CONSTRAINT uniq_ip UNIQUE (ip)
+    CONSTRAINT uniq_ip_port UNIQUE (ip, port)
 ) COMMENT 'server信息表' charset = utf8mb4;
 
 DROP TABLE IF EXISTS `bistoury_gitlab_token`;

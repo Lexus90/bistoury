@@ -21,6 +21,7 @@ import com.google.common.base.Preconditions;
 import io.netty.channel.ChannelHandlerContext;
 import qunar.tc.bistoury.common.JacksonSerializer;
 import qunar.tc.bistoury.proxy.communicate.ui.command.UiRequestCommand;
+import qunar.tc.bistoury.remoting.command.ArthasCommand;
 import qunar.tc.bistoury.remoting.command.HostInfoCommand;
 import qunar.tc.bistoury.remoting.protocol.Datagram;
 import qunar.tc.bistoury.remoting.protocol.RemotingBuilder;
@@ -51,7 +52,9 @@ public abstract class AbstractCommand<T> implements CommunicateCommandProcessor<
     @Override
     @SuppressWarnings("unchecked")
     public final Optional<RequestData<T>> preprocessor(RequestData<String> requestData, ChannelHandlerContext ctx) throws Exception {
-        if (type.equals(String.class) || type.equals(HostInfoCommand.class)) {
+        if (type.equals(String.class)
+                || type.equals(HostInfoCommand.class)
+                || type.equals(ArthasCommand.class)) {
             return doPreprocessor((RequestData<T>) requestData, ctx);
         } else {
             T command = JacksonSerializer.deSerialize(requestData.getCommand(), this.type);

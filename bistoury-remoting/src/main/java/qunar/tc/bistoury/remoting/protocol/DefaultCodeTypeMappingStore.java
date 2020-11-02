@@ -37,7 +37,7 @@ public class DefaultCodeTypeMappingStore implements CodeTypeMappingStore {
         final Class stringClass = String.class;
 
         //arthas
-        register(stringClass, ImmutableSet.of(REQ_TYPE_ARTHAS.getCode(),
+        register(ArthasCommand.class, ImmutableSet.of(REQ_TYPE_ARTHAS.getCode(),
                 REQ_TYPE_DEBUG.getCode(),
                 REQ_TYPE_MONITOR.getCode(),
                 REQ_TYPE_JAR_INFO.getCode(),

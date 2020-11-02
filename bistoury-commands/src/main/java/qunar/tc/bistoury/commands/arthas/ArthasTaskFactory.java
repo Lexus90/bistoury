@@ -25,6 +25,7 @@ import qunar.tc.bistoury.commands.arthas.telnet.NormalTelnetStore;
 import qunar.tc.bistoury.commands.arthas.telnet.TelnetStore;
 import qunar.tc.bistoury.commands.arthas.telnet.UrlEncodedTelnetStore;
 import qunar.tc.bistoury.common.URLCoder;
+import qunar.tc.bistoury.remoting.command.ArthasCommand;
 import qunar.tc.bistoury.remoting.netty.Task;
 import qunar.tc.bistoury.remoting.netty.TaskFactory;
 import qunar.tc.bistoury.remoting.protocol.CommandCode;
@@ -36,7 +37,7 @@ import java.util.Set;
 /**
  * @author zhenyu.nie created on 2019 2019/5/28 16:47
  */
-public class ArthasTaskFactory implements TaskFactory<String> {
+public class ArthasTaskFactory implements TaskFactory<ArthasCommand> {
 
     private static final String PID_SYMBOL = " -pid";
 
@@ -74,7 +75,8 @@ public class ArthasTaskFactory implements TaskFactory<String> {
     }
 
     @Override
-    public Task create(RemotingHeader header, String command, ResponseHandler handler) {
+    public Task create(RemotingHeader header, ArthasCommand arthasCommand, ResponseHandler handler) {
+        String command = arthasCommand.getCommand() + arthasCommand.getPid();
         int pidIndex = command.indexOf(PID_SYMBOL);
         if (pidIndex < 0) {
             handler.handle("no pid");

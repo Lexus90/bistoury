@@ -24,6 +24,7 @@ import com.google.common.collect.Lists;
 import org.springframework.stereotype.Service;
 import qunar.tc.bistoury.common.BistouryConstants;
 import qunar.tc.bistoury.proxy.communicate.ui.handler.commandprocessor.AbstractCommand;
+import qunar.tc.bistoury.remoting.command.ArthasCommand;
 import qunar.tc.bistoury.remoting.protocol.CommandCode;
 import qunar.tc.bistoury.remoting.protocol.RequestData;
 import qunar.tc.bistoury.serverside.agile.Conf;
@@ -40,7 +41,7 @@ import java.util.Set;
  * @author zhenyu.nie created on 2019 2019/5/22 12:22
  */
 @Service
-public class ArthasCommandProcessor extends AbstractCommand<String> {
+public class ArthasCommandProcessor extends AbstractCommand<ArthasCommand> {
 
     private static final Splitter SPACE_SPLITTER = Splitter.on(' ').omitEmptyStrings().trimResults();
 
@@ -81,9 +82,13 @@ public class ArthasCommandProcessor extends AbstractCommand<String> {
     }
 
     @Override
-    protected String prepareCommand(RequestData<String> data, String agentId) {
-        String command = encodeCommand(data.getCommand(), data.getApp());
-        return command + BistouryConstants.PID_PARAM + BistouryConstants.FILL_PID;
+    protected ArthasCommand prepareCommand(RequestData data, String agentId) {
+        String command = encodeCommand((String)data.getCommand(), data.getApp());
+        ArthasCommand arthasCommand = new ArthasCommand();
+        arthasCommand.setAppId(data.getApp());
+        arthasCommand.setCommand(command + BistouryConstants.PID_PARAM);
+//        return command + BistouryConstants.PID_PARAM + BistouryConstants.FILL_PID;
+        return arthasCommand;
     }
 
     @Override

@@ -13,7 +13,8 @@ VM options:
 -Dbistoury.agent.jar.path=/Users/james.cao/code/debug/bistoury/bistoury-dist/target/bistoury-agent-bin/lib/bistoury-instrument-agent.jar
 -Dbistoury.agent.jar.path=/Users/james.cao/code/debug/bistoury/bistoury-dist/target/bistoury-agent-bin/lib/bistoury-instrument-agent-2.0.7.jar
 -Dbistoury.arthas.core.jar.path=/Users/james.cao/code/debug/bistoury/bistoury-dist/target/bistoury-agent-bin/lib/arthas-core-3.1.4.jar
--Dbistoury.app.lib.class=cn.huolala.test.DemoWebApplication
+#-Dbistoury.app.lib.class=cn.huolala.test.DemoWebApplication
+#-Dbistoury.app.lib.class=org.springframework.web.servlet.DispatcherServlet
 
 ```
 
@@ -55,3 +56,18 @@ DB
 mysql -u ci_demo_rw -h 192.168.106.101 -p0xfmYf3_fvxvMxrHxfM
 ```
 
+
+## WARN
+
+No class or method is affected, try:
+1. sm CLASS_NAME METHOD_NAME to make sure the method you are tracing actually exists (it might be in your parent class).
+2. reset CLASS_NAME and try again, your method body might be too large.
+3. check arthas log: /Users/james.cao/logs/arthas/arthas.log
+4. visit https://github.com/alibaba/arthas/issues/47 for more details.
+
+
+-Dbistoury.proxy.host=127.0.0.1:9090
+-Dbistoury.lib.dir=/Users/james.cao/code/debug/bistoury/bistoury-dist/target/bistoury-agent-bin/lib
+-Dbistoury.agent.jar.path=/Users/james.cao/code/debug/bistoury/bistoury-dist/target/bistoury-agent-bin/lib/bistoury-instrument-agent.jar
+-Dbistoury.agent.jar.path=/Users/james.cao/code/debug/bistoury/bistoury-dist/target/bistoury-agent-bin/lib/bistoury-instrument-agent-2.0.7.jar
+-Dbistoury.arthas.core.jar.path=/Users/james.cao/code/debug/bistoury/bistoury-dist/target/bistoury-agent-bin/lib/arthas-core-3.1.4.jar

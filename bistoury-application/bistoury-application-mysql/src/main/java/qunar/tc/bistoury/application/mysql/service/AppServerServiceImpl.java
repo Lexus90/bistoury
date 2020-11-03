@@ -80,11 +80,11 @@ public class AppServerServiceImpl implements AppServerService {
         if (Strings.isNullOrEmpty(appServer.getServerId())) {
             logger.info("{} add a server {}", loginUser, appServer);
             appServer.setServerId(UUIDUtil.generateUniqueId());
-            AppServer oldAppServer = this.appServerDao.getAppServerByIp(appServer.getIp());
+            AppServer oldAppServer = this.appServerDao.getAppServerByIpPort(appServer.getIp(), appServer.getPort());
             if (null == oldAppServer) {
                 return this.appServerDao.addAppServer(appServer);
             } else {
-                throw new RuntimeException("IP地址与" + oldAppServer.getAppCode() + "的IP地址冲突，主机添加失败");
+                throw new RuntimeException("IP:PORT与" + oldAppServer.getAppCode() + "的IP:PORT冲突，主机添加失败");
             }
         } else {
             logger.info("{} update appserver {}", loginUser, appServer);

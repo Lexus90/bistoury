@@ -25,4 +25,6 @@ public interface TelnetStore {
     Telnet getTelnet(int pid) throws Exception;
 
     Telnet tryGetTelnet() throws Exception;
+
+    Telnet tryGetTelnet(Integer pid) throws Exception;
 }

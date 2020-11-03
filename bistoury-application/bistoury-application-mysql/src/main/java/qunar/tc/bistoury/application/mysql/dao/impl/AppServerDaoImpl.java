@@ -41,6 +41,8 @@ public class AppServerDaoImpl implements AppServerDao {
 
     private static final String SELECT_APP_SERVER_BY_IP = "select server_id,ip,port,host,log_dir,room,app_code,auto_jstack_enable,auto_jmap_histo_enable from bistoury_server where ip=?";
 
+    private static final String SELECT_APP_SERVER_BY_IP_PORT = "select server_id,ip,port,host,log_dir,room,app_code,auto_jstack_enable,auto_jmap_histo_enable from bistoury_server where ip=? and port=?";
+
     private static final String SELECT_APP_SERVER_BY_SERVER_ID = "select server_id,ip,port,host,log_dir,room,app_code,auto_jstack_enable,auto_jmap_histo_enable from bistoury_server where server_id=?";
 
     private static final String INSERT_APP_SERVER = "insert ignore into bistoury_server (server_id,ip,port,host,log_dir,room,app_code,auto_jstack_enable,auto_jmap_histo_enable) values (?,?,?,?,?,?,?,?,?);";
@@ -65,6 +67,11 @@ public class AppServerDaoImpl implements AppServerDao {
     @Override
     public AppServer getAppServerByIp(final String ip) {
         return this.jdbcTemplate.query(SELECT_APP_SERVER_BY_IP, APPLICATION_SERVER_MAPPER, ip);
+    }
+
+    @Override
+    public AppServer getAppServerByIpPort(final String ip, final int port) {
+        return this.jdbcTemplate.query(SELECT_APP_SERVER_BY_IP_PORT, APPLICATION_SERVER_MAPPER, ip, port);
     }
 
     @Override

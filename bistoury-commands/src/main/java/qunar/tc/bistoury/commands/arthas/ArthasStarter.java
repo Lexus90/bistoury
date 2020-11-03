@@ -23,6 +23,7 @@ import com.sun.tools.attach.VirtualMachineDescriptor;
 import com.taobao.arthas.core.config.Configure;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import qunar.tc.bistoury.commands.arthas.telnet.TelnetPort;
 
 import java.io.File;
 import java.io.FilenameFilter;
@@ -55,7 +56,6 @@ public class ArthasStarter {
     }
 
     public synchronized static void start(int pid) throws Exception {
-        logger.info("==cw start pid = {}", pid);
         Configure configure = getConfigure(pid);
         attachAgent(configure);
     }
@@ -134,7 +134,7 @@ public class ArthasStarter {
         configure.setArthasAgent(agentJar);
         configure.setArthasCore(coreJar);
         configure.setIp(TelnetConstants.TELNET_CONNECTION_IP);
-        configure.setTelnetPort(TelnetConstants.TELNET_CONNECTION_PORT);
+        configure.setTelnetPort(TelnetPort.getPortByPid(pid));
         configure.setHttpPort(TelnetConstants.DEFAULT_HTTP_PORT);
         return configure;
     }

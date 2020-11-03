@@ -31,6 +31,8 @@ public interface AppServerDao {
 
     AppServer getAppServerByIp(String ip);
 
+    AppServer getAppServerByIpPort(String ip, int port);
+
     AppServer getAppServerByServerId(String serverId);
 
     int addAppServer(AppServer appServer);

@@ -28,6 +28,7 @@ import org.slf4j.LoggerFactory;
 import qunar.tc.bistoury.clientside.common.meta.MetaStore;
 import qunar.tc.bistoury.clientside.common.meta.MetaStores;
 import qunar.tc.bistoury.commands.arthas.telnet.Telnet;
+import qunar.tc.bistoury.commands.arthas.telnet.TelnetPort;
 import qunar.tc.bistoury.commands.arthas.telnet.TelnetStore;
 import qunar.tc.bistoury.commands.arthas.telnet.UrlEncodedTelnetStore;
 import qunar.tc.bistoury.common.JacksonSerializer;
@@ -71,15 +72,18 @@ public class AgentInfoTask implements Runnable {
 
     @Override
     public void run() {
-        Telnet telnet = tryGetTelnet();
-        if (telnet != null) {
-            try {
-                Map<String, String> info = META_STORE.getAgentInfo();
-                push(filterInfo(info), telnet);
-            } finally {
-                telnet.close();
+        for (Integer pid : TelnetPort.getPidPorts().keySet()) {
+            Telnet telnet = tryGetTelnet(pid);
+            if (telnet != null) {
+                try {
+                    Map<String, String> info = META_STORE.getAgentInfo();
+                    push(filterInfo(info), telnet);
+                } finally {
+                    telnet.close();
+                }
             }
         }
+
         executor.schedule(this, getAgentInfoPushIntervalMinutes(), TimeUnit.MINUTES);
     }
 
@@ -107,6 +111,7 @@ public class AgentInfoTask implements Runnable {
         return META_STORE.getIntProperty(AGENT_PUSH_INTERVAL_MIN, DEFAULT_AGENT_INFO_PUSH_INTERVAL_MINUTES);
     }
 
+    //todo cw check
     private void push(Map<String, String> agentInfo, Telnet telnet) {
         try {
             if (!legalVersion(telnet.getVersion())) {
@@ -131,6 +136,15 @@ public class AgentInfoTask implements Runnable {
     private Telnet tryGetTelnet() {
         try {
             return TELNET_STORE.tryGetTelnet();
+        } catch (Exception e) {
+            logger.error("try get telnet fail", e);
+            return null;
+        }
+    }
+
+    private Telnet tryGetTelnet(Integer pid) {
+        try {
+            return TELNET_STORE.tryGetTelnet(pid);
         } catch (Exception e) {
             logger.error("try get telnet fail", e);
             return null;

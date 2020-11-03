@@ -25,6 +25,8 @@ import qunar.tc.bistoury.commands.arthas.TelnetConstants;
 import qunar.tc.bistoury.common.BistouryConstants;
 
 import java.io.IOException;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @author zhenyu.nie created on 2018 2018/10/15 19:07
@@ -39,7 +41,8 @@ public abstract class AbstractTelnetStore implements TelnetStore {
         check, notCheck
     }
 
-    private ArthasEntity arthasEntity;
+//    private ArthasEntity arthasEntity;
+    private static final Map<Integer, ArthasEntity> arthasEntities = new ConcurrentHashMap<>();
 
     protected AbstractTelnetStore() {
 
@@ -98,7 +101,7 @@ public abstract class AbstractTelnetStore implements TelnetStore {
     protected abstract Telnet doCreateTelnet(TelnetClient client) throws IOException;
 
     private synchronized TelnetClient doGetTelnet(int pid) {
-        TelnetClient client = tryGetClient();
+        TelnetClient client = tryGetClient(pid);
         if (client != null) {
             return client;
         }
@@ -110,7 +113,7 @@ public abstract class AbstractTelnetStore implements TelnetStore {
                 return forceCreateClient(pid);
             }
         } catch (Exception e) {
-            resetClient();
+            resetClient(pid);
             throw new IllegalStateException("can not init bistoury, " + e.getMessage(), e);
         }
     }
@@ -118,6 +121,14 @@ public abstract class AbstractTelnetStore implements TelnetStore {
     private TelnetClient tryGetClient() {
         try {
             return createClient();
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    private TelnetClient tryGetClient(Integer pid) {
+        try {
+            return createClientWithPid(pid);
         } catch (Exception e) {
             return null;
         }
@@ -132,23 +143,36 @@ public abstract class AbstractTelnetStore implements TelnetStore {
         return null;
     }
 
-    private void resetClient() {
-        this.arthasEntity = null;
+    @Override
+    public Telnet tryGetTelnet(Integer pid) throws Exception {
+        TelnetClient client = tryGetClient(pid);
+        if (client != null) {
+            return createTelnet(client, CheckVersion.notCheck);
+        }
+        return null;
     }
 
+    private void resetClient(int pid) {
+//        this.arthasEntity = null;
+        this.arthasEntities.remove(pid);
+//        this.arthasEntities.clear();
+    }
+
+    // todo cw change for multi-process
     private TelnetClient createClient(int pid) throws IOException {
-        if (arthasEntity == null || arthasEntity.getPid() != pid) {
+//        if (arthasEntity == null || arthasEntity.getPid() != pid)
+        if (arthasEntities.isEmpty() || !arthasEntities.containsKey(pid)) {
             return forceCreateClient(pid);
         } else {
-            return createClient();
+            return createClientWithPid(pid);
         }
     }
 
     private TelnetClient forceCreateClient(int pid) throws IOException {
         ArthasEntity arthasEntity = new ArthasEntity(pid);
         arthasEntity.start();
-        TelnetClient client = createClient();
-        this.arthasEntity = arthasEntity;
+        TelnetClient client = createClientWithPid(pid);
+        this.arthasEntities.put(pid, arthasEntity);
         return client;
     }
 
@@ -156,6 +180,13 @@ public abstract class AbstractTelnetStore implements TelnetStore {
         TelnetClient client = new TelnetClient();
         client.setConnectTimeout(TelnetConstants.TELNET_CONNECT_TIMEOUT);
         client.connect(TelnetConstants.TELNET_CONNECTION_IP, TelnetConstants.TELNET_CONNECTION_PORT);
+        return client;
+    }
+
+    private TelnetClient createClientWithPid(Integer pid) throws IOException {
+        TelnetClient client = new TelnetClient();
+        client.setConnectTimeout(TelnetConstants.TELNET_CONNECT_TIMEOUT);
+        client.connect(TelnetConstants.TELNET_CONNECTION_IP, TelnetPort.getPortByPid(pid));
         return client;
     }
 }

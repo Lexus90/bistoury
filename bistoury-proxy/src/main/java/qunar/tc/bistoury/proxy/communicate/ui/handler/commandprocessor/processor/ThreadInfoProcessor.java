@@ -39,6 +39,7 @@ public class ThreadInfoProcessor extends AbstractCommand<ThreadCommand> {
     @Override
     protected ThreadCommand prepareCommand(RequestData<ThreadCommand> data, String agentId) {
         ThreadCommand command = data.getCommand();
+        command.setAppId(data.getApp());
         command.setPid(BistouryConstants.FILL_PID);
         return command;
     }

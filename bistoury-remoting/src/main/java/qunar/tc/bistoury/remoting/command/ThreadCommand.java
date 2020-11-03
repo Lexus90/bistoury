@@ -22,7 +22,7 @@ package qunar.tc.bistoury.remoting.command;
  * @date 2019/5/24 11:02
  * @describe
  */
-public class ThreadCommand {
+public class ThreadCommand extends BaseCommand {
     //0-ALL_THREADS_INFO, 1-THREAD_DETAIL, 2-DUMP_THREADS, 3-DEADLOCK_THREAD
     private int type;
     private String pid;
@@ -37,10 +37,12 @@ public class ThreadCommand {
         this.type = type;
     }
 
+    @Override
     public String getPid() {
         return pid;
     }
 
+    @Override
     public void setPid(String pid) {
         this.pid = pid;
     }

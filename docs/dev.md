@@ -14,6 +14,7 @@ VM options:
 -Dbistoury.agent.jar.path=/Users/james.cao/code/debug/bistoury/bistoury-dist/target/bistoury-agent-bin/lib/bistoury-instrument-agent-2.0.7.jar
 -Dbistoury.arthas.core.jar.path=/Users/james.cao/code/debug/bistoury/bistoury-dist/target/bistoury-agent-bin/lib/arthas-core-3.1.4.jar
 #-Dbistoury.app.lib.class=cn.huolala.test.DemoWebApplication
+# 针对Spring项目，别的项目需要修改
 #-Dbistoury.app.lib.class=org.springframework.web.servlet.DispatcherServlet
 
 ```

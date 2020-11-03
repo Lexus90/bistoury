@@ -12,6 +12,7 @@ import org.springframework.util.CollectionUtils;
 import qunar.tc.bistoury.application.api.ApplicationService;
 import qunar.tc.bistoury.application.api.pojo.Application;
 import qunar.tc.bistoury.application.api.pojo.PermissionDenyException;
+import qunar.tc.bistoury.application.mysql.dao.AppServerDao;
 import qunar.tc.bistoury.application.mysql.dao.ApplicationDao;
 import qunar.tc.bistoury.application.mysql.dao.ApplicationUserDao;
 
@@ -29,6 +30,9 @@ public class ApplicationServiceImpl implements ApplicationService {
 
     @Autowired
     private ApplicationDao applicationDao;
+
+    @Autowired
+    private AppServerDao appServerDao;
 
     @Autowired
     private ApplicationUserDao applicationUserDao;
@@ -101,6 +105,14 @@ public class ApplicationServiceImpl implements ApplicationService {
             this.applicationUserDao.batchAddAppUser(newOwners, appCode);
             return this.applicationDao.updateApplication(application);
         }
+    }
+
+    @Override
+    @Transactional
+    public int del(String appCode, String loginUser, boolean admin) {
+        Preconditions.checkArgument(!Strings.isNullOrEmpty(appCode), "app code cannot be null or empty");
+//        Preconditions.checkArgument(verificationAppCode(appCode), "AppCode can only contain _、-、number and letter, like: tc_bistoury-demp ");
+        return applicationDao.delApplication(appCode) + appServerDao.deleteAppServerByAppCode(appCode) + applicationUserDao.delAppByAppCode(appCode);
     }
 
     private boolean verification(Application application, String loginUser, boolean admin) {

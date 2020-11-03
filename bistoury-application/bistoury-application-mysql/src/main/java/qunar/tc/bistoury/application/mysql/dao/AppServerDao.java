@@ -46,4 +46,6 @@ public interface AppServerDao {
     int deleteAppServerByIp(String ip);
 
     int deleteAppServerByServerId(String serverId);
+
+    int deleteAppServerByAppCode(String appCode);
 }

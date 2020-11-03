@@ -56,6 +56,9 @@ public class AppServerDaoImpl implements AppServerDao {
     private static final String CHANGE_AUTO_JMAP_HISTO_ENABLE = "update bistoury_server set auto_jmap_histo_enable=? where server_id=?";
 
     private static final String CHANGE_AUTO_JSTACK_ENABLE = "update bistoury_server set auto_jstack_enable=? where server_id=?";
+
+    private static final String DELETE_APP_SERVER_BY_APP_CODE = "delete from bistoury_server where app_code=?";
+
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
@@ -107,6 +110,11 @@ public class AppServerDaoImpl implements AppServerDao {
     @Override
     public int deleteAppServerByServerId(final String serverId) {
         return this.jdbcTemplate.update(DELETE_APP_SERVER_BY_SERVER_ID, serverId);
+    }
+
+    @Override
+    public int deleteAppServerByAppCode(String appCode) {
+        return jdbcTemplate.update(DELETE_APP_SERVER_BY_APP_CODE, appCode);
     }
 
     private static final ResultSetExtractor<AppServer> APPLICATION_SERVER_MAPPER = resultSet -> {

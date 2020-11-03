@@ -36,4 +36,6 @@ public interface ApplicationService {
     List<String> getAppOwner(String appCode);
 
     int save(Application application, String loginUser, boolean admin);
+
+    int del(String appCode, String loginUser, boolean admin);
 }

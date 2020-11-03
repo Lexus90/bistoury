@@ -60,4 +60,12 @@ public class ApplicationController {
         boolean admin = LoginContext.getLoginContext().isAdmin();
         return ResultHelper.success(this.applicationService.save(application, loginUser, admin));
     }
+
+    @ResponseBody
+    @RequestMapping("delete")
+    public ApiResult save(final String appCode) {
+        String loginUser = LoginContext.getLoginContext().getLoginUser();
+        boolean admin = LoginContext.getLoginContext().isAdmin();
+        return ResultHelper.success(this.applicationService.del(appCode, loginUser, admin));
+    }
 }

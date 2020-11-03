@@ -212,6 +212,28 @@ $(document).ready(function () {
         })
     }
 
+    function deleteAppByAppCode(code) {
+        if (!confirm("确定要删除吗？")) {
+            return;
+        }
+        $.ajax({
+            "url": "api/application/delete.do",
+            "type": "post",
+            data: {
+                appCode: code
+            },
+            success: function (ret) {
+                if (ret.status === 0) {
+                    bistoury.success("删除成功");
+                    getAppList();
+                } else {
+                    console.log(ret.message);
+                    bistoury.error("删除失败");
+                }
+            }
+        })
+    }
+
     function buildAppDetail(app) {
         $("input[data-role='app-detail-value']").val("");
         $("textarea[data-role='app-detail-value']").val("");
@@ -301,8 +323,9 @@ $(document).ready(function () {
                 events: operateEvents,
                 formatter: function (value, row, index) {
                     return [
-                        '<a class="btn btn-info btn-sm app-manage" href="#">管理</a>'
-                    ].join('');
+                        '<a class="btn btn-info btn-sm app-manage" href="#">管理</a>',
+                        '<a class="btn btn-warning btn-sm app-manage-delete" href="#">删除</a>'
+                    ].join(' ');
                 }
             }],
             onRefresh: function () {
@@ -385,7 +408,7 @@ $(document).ready(function () {
                 formatter: function (value, row, index) {
                     return [
                         '<a class="btn btn-info btn-sm app-server-manage" href="#">管理</a>',
-                        '<a class="btn btn-info btn-sm app-server-delete" href="#">删除</a>'
+                        '<a class="btn btn-warning btn-sm app-server-delete" href="#">删除</a>'
                     ].join(' ');
                 }
             }],
@@ -436,6 +459,9 @@ $(document).ready(function () {
             $("#app-detail-code").attr("disabled");
             initAppDetailPanel();
             buildAppDetail(row);
+        },
+        "click .app-manage-delete": function (e, value, row, index) {
+            deleteAppByAppCode(row.code);
         },
         "click .app-server-delete": function (e, value, row, index) {
             deleteAppServerByServerId(row.serverId);

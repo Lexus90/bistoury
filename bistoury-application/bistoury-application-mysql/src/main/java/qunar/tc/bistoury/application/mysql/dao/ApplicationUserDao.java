@@ -34,4 +34,6 @@ public interface ApplicationUserDao {
     void batchAddAppUser(List<String> userCodes, String addCode);
 
     int removeAppUser(String userCode, String appCode);
+
+    int delAppByAppCode(String appCode);
 }

@@ -44,6 +44,8 @@ public class ApplicationUserDaoImpl implements ApplicationUserDao {
 
     private static final String SELECT_USER_BY_APP = "select user_code from bistoury_user_app where app_code = ?";
 
+    private static final String REMOVE_APP_BY_CODE = "delete from bistoury_user_app where app_code = ?";
+
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
@@ -81,6 +83,11 @@ public class ApplicationUserDaoImpl implements ApplicationUserDao {
     @Override
     public int removeAppUser(final String userCode, final String appCode) {
         return jdbcTemplate.update(REMOVE_USER_FROM_APP, userCode, appCode);
+    }
+
+    @Override
+    public int delAppByAppCode(String appCode) {
+        return jdbcTemplate.update(REMOVE_APP_BY_CODE, appCode);
     }
 
     private static final RowMapper<String> LIST_APPCODE = (rs, rowNum) -> rs.getString("app_code");

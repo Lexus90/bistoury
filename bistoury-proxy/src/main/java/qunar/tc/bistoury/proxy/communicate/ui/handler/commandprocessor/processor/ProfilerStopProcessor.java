@@ -10,6 +10,7 @@ import qunar.tc.bistoury.common.TypeResponse;
 import qunar.tc.bistoury.proxy.communicate.ui.handler.commandprocessor.AbstractCommand;
 import qunar.tc.bistoury.proxy.service.profiler.ProfilerManager;
 import qunar.tc.bistoury.proxy.util.ProfilerDatagramHelper;
+import qunar.tc.bistoury.remoting.command.ArthasCommand;
 import qunar.tc.bistoury.remoting.protocol.CommandCode;
 import qunar.tc.bistoury.remoting.protocol.Datagram;
 import qunar.tc.bistoury.remoting.protocol.RequestData;
@@ -20,7 +21,7 @@ import java.util.Optional;
 import java.util.Set;
 
 @Service
-public class ProfilerStopProcessor extends AbstractCommand<String> {
+public class ProfilerStopProcessor extends AbstractCommand<ArthasCommand> {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ProfilerStopProcessor.class);
 
@@ -43,8 +44,12 @@ public class ProfilerStopProcessor extends AbstractCommand<String> {
     }
 
     @Override
-    protected String prepareCommand(RequestData<String> data, String agentId) {
-        return data.getCommand() + BistouryConstants.PID_PARAM + BistouryConstants.FILL_PID;
+    protected ArthasCommand prepareCommand(RequestData data, String agentId) {
+        ArthasCommand arthasCommand = new ArthasCommand();
+        arthasCommand.setCommand((String) data.getCommand() + BistouryConstants.PID_PARAM);
+        arthasCommand.setAppId(data.getApp());
+        arthasCommand.setPid(BistouryConstants.FILL_PID);
+        return arthasCommand;
     }
 
     @Override

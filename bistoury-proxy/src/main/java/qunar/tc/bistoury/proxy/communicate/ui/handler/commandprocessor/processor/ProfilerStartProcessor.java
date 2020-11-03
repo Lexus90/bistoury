@@ -6,11 +6,13 @@ import com.google.common.collect.ImmutableSet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import qunar.tc.bistoury.common.BistouryConstants;
 import qunar.tc.bistoury.common.TypeResponse;
 import qunar.tc.bistoury.proxy.communicate.ui.handler.commandprocessor.AbstractCommand;
 import qunar.tc.bistoury.proxy.service.profiler.ProfilerManager;
 import qunar.tc.bistoury.proxy.service.profiler.ProfilerSettingsManager;
 import qunar.tc.bistoury.proxy.util.ProfilerDatagramHelper;
+import qunar.tc.bistoury.remoting.command.ArthasCommand;
 import qunar.tc.bistoury.remoting.protocol.CommandCode;
 import qunar.tc.bistoury.remoting.protocol.Datagram;
 import qunar.tc.bistoury.remoting.protocol.RequestData;
@@ -22,7 +24,7 @@ import java.util.Optional;
 import java.util.Set;
 
 @Service
-public class ProfilerStartProcessor extends AbstractCommand<String> {
+public class ProfilerStartProcessor extends AbstractCommand<ArthasCommand> {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ProfilerStartProcessor.class);
 
@@ -50,11 +52,15 @@ public class ProfilerStartProcessor extends AbstractCommand<String> {
     }
 
     @Override
-    protected String prepareCommand(RequestData<String> data, String agentId) {
-        String command = data.getCommand();
+    protected ArthasCommand prepareCommand(RequestData data, String agentId) {
+        String command = (String) data.getCommand();
         ProfilerSettings settings = profilerSettingsManager.create(getAppCode(command), getConfig(command));
         profilerManager.prepare(agentId, settings);
-        return settings.getCommand();
+        ArthasCommand arthasCommand = new ArthasCommand();
+        arthasCommand.setCommand(settings.getCommand());
+        arthasCommand.setPid(BistouryConstants.FILL_PID);
+        arthasCommand.setAppId(data.getApp());
+        return arthasCommand;
     }
 
     private String getAppCode(String command) {

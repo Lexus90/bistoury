@@ -29,7 +29,7 @@ public class DefaultProfilerManager implements ProfilerManager {
         profilerLockDao.insert(settings.getAppCode(), agentId);
         String profilerId = profilerService.prepareProfiler(agentId, settings);
         String command = settings.getCommand().replace(BistouryConstants.PROFILER_ID, profilerId)
-                + BistouryConstants.PID_PARAM + BistouryConstants.FILL_PID;
+                + BistouryConstants.PID_PARAM;
         settings.setCommand(command);
         return profilerId;
     }

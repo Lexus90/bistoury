@@ -30,7 +30,7 @@ import java.util.Map;
 public enum ErrorCode {
     SYSTEM_EXCEPTION(-101, "系统异常"),
     UNKNOWN_CODE(-102, "当前版本不支持该命令，请检查agent版本是否更新"),
-    AGENT_NOT_START(-103, "Agent未启动，请刷新重试或联系tcdev热线"),
+    AGENT_NOT_START(-103, "Agent未启动，请刷新重试或联系运维团队"),
     PID_ERROR(-104, "PID获取错误，请检查应用是否启动"),
     AGENT_VERSION_ERROR(-105, "Agent 版本错误，请检查agent版本是否更新"),
     NO_LOG_DIR(-106, "应用日志目录不存在"),

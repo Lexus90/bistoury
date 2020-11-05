@@ -40,6 +40,11 @@ public class AgentGetController {
     @Autowired
     private AgentConnectionStore agentConnectionStore;
 
+    /**
+     * 返回
+     * @param ip agentIp
+     * @return
+     */
     @ResponseBody
     @RequestMapping("/proxy/agent/get")
     public ApiResult getAgentInfo(@RequestParam final String ip) {

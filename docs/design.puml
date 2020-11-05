@@ -1,0 +1,71 @@
+@startuml
+storage "架构图" #f9f0ff {
+
+
+    storage Web #adc6ff{
+        archimate #Technology "Web1" as web1 <<technology-device>>
+        archimate #Technology "Web2" as web2 <<technology-device>>
+    }
+
+
+    storage "Proxy Cluster" as Proxy #adc6ff{
+        archimate #Technology "Proxy1" as Proxy1 <<technology-device>>
+        archimate #Technology "Proxy2" as Proxy2 <<technology-device>>
+        archimate #Technology "Proxy3" as Proxy3 <<technology-device>>
+    }
+
+    storage "ZK Cluster"  as ZK #d6e4ff
+    ZK .down.> Web
+    Proxy .up.> ZK
+
+    storage Nginx as ng #d6e4ff
+
+    storage "Agent Cluster" #adc6ff{
+
+        storage VM1 #f0f0f0{
+            archimate #Technology "ServiceA" as ServiceA <<technology-device>>
+            storage  Agent1 #d6e4ff
+            Agent1 .. ServiceA
+        }
+
+        storage VM2 #f0f0f0{
+            storage Service as Service1 #f9f0ff{
+                archimate #Technology "ServiceB" as ServiceB <<technology-device>>
+                archimate #Technology "ServiceC" as ServiceC <<technology-device>>
+'                archimate #Technology "ServiceC" as ServiceC <<technology-device>>
+            }
+            storage Agent2 #d6e4ff
+            Agent2 .. ServiceB
+            Agent2 .. ServiceC
+        }
+
+        storage VM3 #f0f0f0{
+            storage Service as Service3 #f9f0ff{
+                archimate #Technology "ServiceD" as ServiceD <<technology-device>>
+                archimate #Technology "ServiceE" as ServiceE <<technology-device>>
+                archimate #Technology "ServiceF" as ServiceF <<technology-device>>
+            }
+            storage Agent3 #d6e4ff
+            Agent3 .. ServiceD
+            Agent3 .. ServiceE
+            Agent3 .. ServiceF
+        }
+    }
+
+    Agent3 .up.> ng
+    Agent2 .up.> ng
+    Agent1 .up.> ng
+
+    Proxy1 .down.> ng
+    Proxy2 .down.> ng
+    Proxy3 .down.> ng
+
+    web1 <--> Proxy1
+    web2 <--> Proxy2
+    web2 <--> Proxy3
+
+    Proxy1 <--> Agent1
+    Proxy2 <--> Agent2
+    Proxy3 <--> Agent3
+}
+@enduml

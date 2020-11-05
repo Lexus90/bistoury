@@ -103,6 +103,12 @@ public class ProxyServiceImpl implements ProxyService {
         return Optional.empty();
     }
 
+    /**
+     * 遍历请求所有proxy 找到注册了agent的那台，通过proxyInfo 构造webSocketUrl
+     * @param result
+     * @param proxyWebSocketUrls
+     * @param agentIp
+     */
     private void doGetWebSocketUrl(List<String> result, List<String> proxyWebSocketUrls, final String agentIp) {
         for (String proxyWebSocketUrl : proxyWebSocketUrls) {
             Optional<ProxyInfo> optional = ProxyInfoParser.parseProxyInfo(proxyWebSocketUrl);

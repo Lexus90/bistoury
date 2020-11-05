@@ -47,6 +47,7 @@ public class ConfigController {
             return ResultHelper.fail(-2, "no agent ip");
         }
 
+        // 通过agentIp到所有的proxy查询
         List<String> result = proxyService.getWebSocketUrl(agentIp);
 
         if (!result.isEmpty()) {

@@ -34,6 +34,7 @@ import java.util.Set;
 import java.util.regex.Pattern;
 
 /**
+ * 控制台命令提示、补全
  * @author leix.xie
  * @date 2019/6/13 19:42
  * @describe

@@ -120,6 +120,7 @@ public class UiRequestHandler extends ChannelDuplexHandler {
         }
 
         CommunicateCommand communicateCommand = command.get();
+        // 如果command 不支持多agent并发（多机执行）, 同时agent size > 0, 则返回不支持多机执行
         if (!communicateCommand.isSupportMulti() && inputData.getAgentServerInfos().size() > 1) {
             ctx.channel().writeAndFlush(UiResponses.createNotSupportMultiResponse(inputData));
             return;
